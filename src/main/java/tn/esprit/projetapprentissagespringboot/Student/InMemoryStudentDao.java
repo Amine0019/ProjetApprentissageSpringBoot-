@@ -49,11 +49,16 @@ public class InMemoryStudentDao {
 
 
 
-    public void deleteStudent(String email) {
-        var student = findStudentByEmail(String.valueOf(email));
-        if (student != null) {
-            STUDENTS.remove(student);
+    public boolean deleteStudent(String email) {
+
+        if (email == null) {
+            return false;
         }
 
+        return STUDENTS.removeIf(s ->
+                s.getEmail() != null &&
+                        s.getEmail().equals(email)
+        );
     }
+
 }
